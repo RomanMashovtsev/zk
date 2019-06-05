@@ -1,0 +1,134 @@
+object Form1: TForm1
+  Left = 256
+  Height = 511
+  Top = 145
+  Width = 557
+  Caption = 'Записная книжка'
+  ClientHeight = 511
+  ClientWidth = 557
+  OnClose = FormClose
+  OnCreate = FormCreate
+  LCLVersion = '2.0.2.0'
+  object DBGrid1: TDBGrid
+    Left = 8
+    Height = 344
+    Top = 8
+    Width = 536
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'Имя'
+        Width = 200
+        FieldName = 'name'
+      end    
+      item
+        Title.Caption = 'Номер телефона'
+        Width = 200
+        FieldName = 'phone'
+      end>
+    DataSource = DataSource1
+    TabOrder = 0
+    OnColumnSized = DBGrid1ColumnSized
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 8
+    Height = 25
+    Top = 360
+    Width = 241
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 241
+    DataSource = DataSource1
+    Options = []
+    TabOrder = 1
+  end
+  object DBEdit1: TDBEdit
+    Left = 8
+    Height = 23
+    Top = 398
+    Width = 112
+    DataField = 'name'
+    DataSource = DataSource1
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 2
+  end
+  object DBEdit2: TDBEdit
+    Left = 136
+    Height = 23
+    Top = 398
+    Width = 112
+    DataField = 'phone'
+    DataSource = DataSource1
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 3
+  end
+  object Button1: TButton
+    Left = 8
+    Height = 25
+    Top = 432
+    Width = 75
+    Caption = 'Сохранить'
+    OnClick = Button1Click
+    TabOrder = 4
+  end
+  object Edit1: TEdit
+    Left = 312
+    Height = 23
+    Top = 362
+    Width = 232
+    TabOrder = 5
+  end
+  object Button2: TButton
+    Left = 312
+    Height = 25
+    Top = 396
+    Width = 75
+    Caption = 'Поиск'
+    OnClick = Button2Click
+    TabOrder = 6
+  end
+  object SQLQuery1: TSQLQuery
+    FieldDefs = <>
+    Database = SQLite3Connection1
+    Transaction = SQLTransaction1
+    SQL.Strings = (
+      'select id,'
+      '  cast(`name` as VARCHAR) as name,'
+      '  cast(`phone` as VARCHAR) as phone'
+      'from `book`'
+      'order by name;'
+    )
+    Params = <>
+    left = 520
+    top = 440
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = True
+    Database = SQLite3Connection1
+    left = 579
+    top = 445
+  end
+  object SQLite3Connection1: TSQLite3Connection
+    Connected = True
+    LoginPrompt = False
+    DatabaseName = 'db.db'
+    KeepConnection = False
+    Transaction = SQLTransaction1
+    left = 643
+    top = 446
+  end
+  object DataSource1: TDataSource
+    DataSet = SQLQuery1
+    OnDataChange = DataSource1DataChange
+    left = 486
+    top = 450
+  end
+end
